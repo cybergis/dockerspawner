@@ -33,5 +33,5 @@ class DockerSpawner_CyberGIS(DockerSpawner):
 
     def template_namespace(self):
         template_namespace_dict = super().template_namespace()
-        template_namespace_dict["parent_folder"] = self.parent_folder + "/"
+        template_namespace_dict["parent_folder"] = (self.parent_folder + "/") if len(self.parent_folder) > 0 else ""
         return template_namespace_dict
