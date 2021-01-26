@@ -1,7 +1,7 @@
 from traitlets import Unicode, Any
 from docker.errors import APIError
 from tornado import gen
-from .dockerspawner_cybergis import DockerSpawner_CyberGIS
+from .dockerspawner_cybergis import pre_spawn_create_folder_in_hub_container
 from .dockerspawner import DockerSpawner
 
 
@@ -10,7 +10,7 @@ class SwarmSpawner_CyberGIS(DockerSpawner):
     storage_base_path_in_hub_container = Unicode(default_value="/var/nfs").tag(config=True)
 
     pre_spawn_hook = Any(
-        default_value=DockerSpawner_CyberGIS.pre_spawn_create_folder_in_hub_container
+        default_value=pre_spawn_create_folder_in_hub_container
     ).tag(config=True)
 
     # Drew: fix load-test failure
