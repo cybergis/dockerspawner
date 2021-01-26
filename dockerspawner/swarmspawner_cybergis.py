@@ -2,10 +2,10 @@ from traitlets import Unicode, Any
 from docker.errors import APIError
 from tornado import gen
 from .dockerspawner_cybergis import pre_spawn_create_folder_in_hub_container
-from .dockerspawner import DockerSpawner
+from .swarmspawner import SwarmSpawner
 
 
-class SwarmSpawner_CyberGIS(DockerSpawner):
+class SwarmSpawner_CyberGIS(SwarmSpawner):
 
     storage_base_path_in_hub_container = Unicode(default_value="/var/nfs").tag(config=True)
 
