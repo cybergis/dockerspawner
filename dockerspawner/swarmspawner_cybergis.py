@@ -26,7 +26,7 @@ class SwarmSpawner_CyberGIS(SwarmSpawner):
                     target=vol["bind"],
                     source=host_loc,
                     type="bind",
-                    read_only=False,
+                    read_only=vol["mode"] == "ro",
                     # driver_config=driver,
                     driver_config=None,
                 )
