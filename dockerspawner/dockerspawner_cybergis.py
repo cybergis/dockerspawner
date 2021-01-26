@@ -59,7 +59,7 @@ async def pre_spawn_create_folder_in_hub_container(spawner):
 
 class DockerSpawner_CyberGIS(DockerSpawner):
 
-    storage_base_path_in_hub_container = Unicode(default_value="/var/nfs")
+    storage_base_path_in_hub_container = Unicode(default_value="/var/nfs").tag(config=True)
 
     pre_spawn_hook = Any(
         default_value=pre_spawn_create_folder_in_hub_container
