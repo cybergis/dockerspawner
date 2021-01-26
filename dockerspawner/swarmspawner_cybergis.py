@@ -1,5 +1,6 @@
 from traitlets import Unicode, Any
 from docker.errors import APIError
+from docker.types import Mount
 from tornado import gen
 from .dockerspawner_cybergis import pre_spawn_create_folder_in_hub_container
 from .swarmspawner import SwarmSpawner
@@ -12,6 +13,27 @@ class SwarmSpawner_CyberGIS(SwarmSpawner):
     pre_spawn_hook = Any(
         default_value=pre_spawn_create_folder_in_hub_container
     ).tag(config=True)
+
+    # Workaround Jupyterhub bug causing failed mount in Swarm
+    # https://github.com/jupyterhub/dockerspawner/issues/263
+
+    @property
+    def mounts(self):
+        if len(self.volume_binds):
+            driver = self.mount_driver_config
+            return [
+                Mount(
+                    target=vol["bind"],
+                    source=host_loc,
+                    type="bind",
+                    read_only=False,
+                    # driver_config=driver,
+                    driver_config=None,
+                )
+                for host_loc, vol in self.volume_binds.items()
+            ]
+        else:
+            return []
 
     # Drew: fix load-test failure
     # retry to find service with desired state
