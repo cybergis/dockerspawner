@@ -11,6 +11,7 @@ async def pre_spawn_create_folder_in_hub_container(spawner):
     storage_base_path_in_hub_container = spawner.storage_base_path_in_hub_container
     user_folder = os.path.join(storage_base_path_in_hub_container, spawner.template_namespace()["safe_username"])
     spawner.environment["KERNEL_SAFE_USERNAME"] = spawner.template_namespace()["safe_username"]
+    spawner.environment["KERNEL_USERNAME"] = spawner.template_namespace()["safe_username"]
 
     try:
         # create a user folder in hub container
